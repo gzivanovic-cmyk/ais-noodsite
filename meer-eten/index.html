@@ -4074,7 +4074,7 @@ div.u_1065037137
 
 
 <!-- SYS- VVNfRElSRUNUX1BST0RVQ1RJT04= -->
-<style id="noodsite">.dmform{display:none!important}</style><style id="noodsite-zichtbaar">[data-anim-extended],[data-anim-desktop],[data-anim-mobile],[data-anim-tablet]{visibility:visible!important;opacity:1!important;animation:none!important}</style></head>
+<style id="noodsite-zichtbaar">[data-anim-extended],[data-anim-desktop],[data-anim-mobile],[data-anim-tablet]{visibility:visible!important;opacity:1!important;animation:none!important}</style></head>
 
 
 
@@ -4870,5 +4870,23 @@ window.Futy = { key: '65bd02b4bd0fa' };
 <!--  Site Wide Html Markup -->
 <!--  Begin Product Custom HTML Markup -->
 <style>.dmPopupTitle {display:none!important;}</style><!--  End Product Custom HTML Markup -->
-</body>
+<script id="noodsite-formulier">(function(){
+function verstuur(f){
+ var r=[];
+ f.querySelectorAll('[name^="dmform-"]').forEach(function(el){
+  if(el.type==='hidden')return;
+  var lab=f.querySelector('[name="label-'+el.name+'"]'), v=(el.value||'').trim();
+  if(v) r.push((lab?lab.value:el.name).replace(/:$/,'')+': '+v);
+ });
+ if(!r.length){alert('Vul eerst het formulier in.');return;}
+ var onderwerp='Bericht via www.ais-groep.nl ('+(document.title.split('|')[0]||'').trim()+')';
+ window.location.href='mailto:info@ais-groep.nl?subject='+encodeURIComponent(onderwerp)+'&body='+encodeURIComponent(r.join('\n'));
+ if(!f.querySelector('.noodsite-melding')){var m=document.createElement('p');m.className='noodsite-melding';
+  m.textContent='Uw e-mailprogramma wordt geopend met uw bericht aan info@ais-groep.nl. Lukt dat niet? Mail naar info@ais-groep.nl of bel 088 1700 602.';
+  m.style.cssText='margin:12px 0 0;font-weight:bold;color:#112f56';f.appendChild(m);}
+}
+document.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('.dmform input[type=submit], .dmform .dmformsubmit');
+ if(!b)return;var f=b.closest('.dmform').querySelector('form');if(!f)return;e.preventDefault();e.stopImmediatePropagation();verstuur(f);},true);
+document.addEventListener('submit',function(e){var f=e.target;if(!f||!f.closest||!f.closest('.dmform'))return;e.preventDefault();e.stopImmediatePropagation();verstuur(f);},true);
+})();</script></body>
 </html>
